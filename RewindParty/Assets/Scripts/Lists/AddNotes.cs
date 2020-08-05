@@ -13,16 +13,16 @@ public class AddNotes : MonoBehaviour
 
         newNote.transform.GetChild(0).GetComponent<Text>().text = text.text;
 
-        GameManager.instance.AddNote(text.text);
+        GameManagerLegacy.instance.AddNote(text.text);
     }
 
     private void Start()
     {
         print("eee");
 
-        print(GameManager.instance);
+        print(GameManagerLegacy.instance);
 
-        foreach (string item in GameManager.instance.notes)
+        foreach (string item in GameManagerLegacy.instance.notes)
         {
            
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManagerLegacy : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManagerLegacy instance;
 
     public List<string> notes;
 
