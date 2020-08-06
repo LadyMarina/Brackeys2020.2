@@ -40,26 +40,38 @@ public class BackTrackingBox : MonoBehaviour
             {
                 trackPositions.Add(newPos);
                 lastTrackPos = newPos;
+                goingBackPos = newPos;
+
+                print(newPos);
             }
+
+
         }
         else
         {
             time -= Time.deltaTime;
 
+            //    print(goingBackPos + " " + posIndex);
+
+            print(posIndex);
+
             if (time <= 0)
             {
                 time = timeBetweenAnim;
-
-                goingBackPos = trackPositions[posIndex];
 
                 posIndex--;
 
                 if(posIndex < 0)
                 {
+                    print("hola");
+
                     trackPositions.Clear();
                     goingBackAnim = false;
-           
+
+                    return;
                 }
+
+                goingBackPos = trackPositions[posIndex];
             }
 
             transform.position = Vector2.Lerp(transform.position, goingBackPos, lerpValue);
@@ -67,13 +79,16 @@ public class BackTrackingBox : MonoBehaviour
     }
 
     public void ResetPos()
-    {
-        goingBackAnim = true;
-        posIndex = trackPositions.Count-1;
+    { 
+        posIndex = trackPositions.Count - 1;
 
-        foreach (var item in trackPositions)
+        if(posIndex <= 0)
         {
-            print(item);
+            goingBackAnim = false;
+        }
+        else
+        {
+            goingBackAnim = true;
         }
     }
 }
