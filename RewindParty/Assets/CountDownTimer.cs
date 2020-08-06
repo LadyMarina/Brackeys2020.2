@@ -12,31 +12,38 @@ public class CountDownTimer : MonoBehaviour
     private float currentTime;
     private Text text;
 
+    public bool countingDown = true;
 
     private void Start()
     {
         currentTime = countDownTime;
         text = GetComponent<Text>();
+
+        countingDown = true;
     }
 
     private void Update()
     {
-        currentTime -= Time.deltaTime;
+        if (countingDown)
+        {
+            currentTime -= Time.deltaTime;
 
-        if(currentTime < 10)
-        {
-            text.text = currentTime.ToString("F2");
-        }
-        else
-        {
-            text.text = Mathf.RoundToInt(currentTime).ToString();
-        }
-        
+            if (currentTime < 10)
+            {
+                text.text = currentTime.ToString("F2");
+            }
+            else
+            {
+                text.text = Mathf.RoundToInt(currentTime).ToString();
+            }
 
-        if (currentTime < 0)
-        {
-            timeAt0.Invoke();
-            currentTime = countDownTime;
-        }
+            if (currentTime < 0)
+            {
+                timeAt0.Invoke();
+                currentTime = countDownTime;
+
+                countingDown = false;
+            }
+        } 
     }
 }
