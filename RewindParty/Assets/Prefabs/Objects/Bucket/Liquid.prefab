@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 351773174036897811}
   - component: {fileID: 4547130894540183544}
+  - component: {fileID: 2395968373048149562}
+  - component: {fileID: 5357996887356261493}
+  - component: {fileID: 1450584065738015332}
   m_Layer: 0
   m_Name: Liquid
   m_TagString: Untagged
@@ -82,3 +85,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2395968373048149562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181972941247792076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d137af7974c65cf4f9c6ccf25b41236a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+    waterColor: {r: 0.4308473, g: 0.8475168, b: 0.8867924, a: 1}
+    vomitColor: {r: 0.4494482, g: 0.9433962, b: 0.48056126, a: 1}
+--- !u!58 &5357996887356261493
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181972941247792076}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
+--- !u!50 &1450584065738015332
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181972941247792076}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
