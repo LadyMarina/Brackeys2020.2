@@ -74,7 +74,6 @@ public class BackTrackGrid : MonoBehaviour
         {
             if (item.isBackTracking())
             {
-                print("hola");
                 return true;
             }
         }

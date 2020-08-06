@@ -22,6 +22,8 @@ public class BackTrackingBox : MonoBehaviour
 
         time = timeBetweenAnim;
         goingBackAnim = false;
+
+        GetComponent<GhostTrail>().enabled = false;
     }
 
     public bool isBackTracking()
@@ -65,6 +67,8 @@ public class BackTrackingBox : MonoBehaviour
                     trackPositions.Clear();
                     goingBackAnim = false;
 
+                    GetComponent<GhostTrail>().enabled = false;
+
                     return;
                 }
 
@@ -86,6 +90,7 @@ public class BackTrackingBox : MonoBehaviour
         else
         {
             goingBackAnim = true;
+            GetComponent<GhostTrail>().enabled = true;
         }
     }
 }
