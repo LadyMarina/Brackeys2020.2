@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BackTrackManager
   - Timer
+  - Wall
   layers:
   - Default
   - TransparentFX
