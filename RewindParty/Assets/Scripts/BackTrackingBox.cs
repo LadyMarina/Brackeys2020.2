@@ -16,6 +16,16 @@ public class BackTrackingBox : MonoBehaviour
     private float time;
     [SerializeField] private float timeBetweenAnim = 0.2f;
 
+    //--------------------
+
+    [SerializeField] private float timeToMove = 1f;
+    private bool gettingMoved = false;
+    private float movingTime = 0;
+
+    Collision2DSideType collisionSide;
+    private Vector2 beforeMovingPos;
+    private Vector2 movingToPos;
+
     private void Awake()
     {
         trackPositions = new List<Vector2>();
@@ -40,6 +50,9 @@ public class BackTrackingBox : MonoBehaviour
     {
         if (!goingBackAnim)
         {
+            if (gettingMoved)
+                MoveBoxForward();
+
             Vector2 newPos = BackTrackGrid.GetNearestPointOnGrid(transform.position);
 
             if (lastTrackPos != newPos)
@@ -48,8 +61,6 @@ public class BackTrackingBox : MonoBehaviour
                 lastTrackPos = newPos;
                 goingBackPos = newPos;
             }
-
-
         }
         else
         {
@@ -92,5 +103,77 @@ public class BackTrackingBox : MonoBehaviour
             goingBackAnim = true;
             GetComponent<GhostTrail>().enabled = true;
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            movingTime -= Time.deltaTime;
+
+            if(movingTime <= 0)
+            {
+                collisionSide = collision.GetContactSide();
+                beforeMovingPos = BackTrackGrid.GetNearestPointOnGrid(transform.position);
+                movingToPos = movingTo();
+
+                gettingMoved = true;
+                MoveBoxForward();
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            movingTime = timeToMove;
+        }
+        
+        print(collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            //movingToPos = beforeMovingPos;
+
+            gettingMoved = false;
+        }
+    }
+
+
+    private Vector2 movingTo()
+    {
+        switch (collisionSide)
+        {
+            case Collision2DSideType.None:
+                print("Error Side Collider");
+                break;
+            case Collision2DSideType.Left:
+                return beforeMovingPos + Vector2.right;
+
+            case Collision2DSideType.Right:
+                return beforeMovingPos + Vector2.left;
+
+            case Collision2DSideType.Top:
+                return beforeMovingPos + Vector2.down;
+
+            case Collision2DSideType.Bottom:
+                return beforeMovingPos + Vector2.up;
+
+        }
+
+        print("error moving To");
+        return Vector2.zero;
+
+    }
+
+    private void MoveBoxForward()
+    {
+        transform.position = Vector2.Lerp(transform.position, movingToPos, lerpValue);
+
+        if(Vector2.Distance(transform.position, movingToPos) < 0.01f)
+        {
+            gettingMoved = false;
+        } 
     }
 }
