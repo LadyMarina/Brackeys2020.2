@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class BackTrackingBox : MonoBehaviour
 {
-    public bool isBackTracking = true;
-
     private List<Vector2> trackPositions;
     private Vector2 lastTrackPos;
 
-    private bool goingBackAnim;
+    private bool goingBackAnim = false;
     private Vector2 goingBackPos;
     [SerializeField][Range(0f,1f)] private float lerpValue = 0.1f;
     private int posIndex;
@@ -23,6 +21,14 @@ public class BackTrackingBox : MonoBehaviour
         trackPositions = new List<Vector2>();
 
         time = timeBetweenAnim;
+        goingBackAnim = false;
+
+        GetComponent<GhostTrail>().enabled = false;
+    }
+
+    public bool isBackTracking()
+    {
+        return goingBackAnim;
     }
 
     private void Start()
@@ -41,8 +47,6 @@ public class BackTrackingBox : MonoBehaviour
                 trackPositions.Add(newPos);
                 lastTrackPos = newPos;
                 goingBackPos = newPos;
-
-                print(newPos);
             }
 
 
@@ -50,10 +54,6 @@ public class BackTrackingBox : MonoBehaviour
         else
         {
             time -= Time.deltaTime;
-
-            //    print(goingBackPos + " " + posIndex);
-
-            print(posIndex);
 
             if (time <= 0)
             {
@@ -63,10 +63,11 @@ public class BackTrackingBox : MonoBehaviour
 
                 if(posIndex < 0)
                 {
-                    print("hola");
 
                     trackPositions.Clear();
                     goingBackAnim = false;
+
+                    GetComponent<GhostTrail>().enabled = false;
 
                     return;
                 }
@@ -78,7 +79,7 @@ public class BackTrackingBox : MonoBehaviour
         }
     }
 
-    public void ResetPos()
+    private void ResetPos()
     { 
         posIndex = trackPositions.Count - 1;
 
@@ -89,6 +90,7 @@ public class BackTrackingBox : MonoBehaviour
         else
         {
             goingBackAnim = true;
+            GetComponent<GhostTrail>().enabled = true;
         }
     }
 }
